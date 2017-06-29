@@ -8,13 +8,16 @@ def getimage(path):
     faces=[]
     imagepaths=[os.path.join(path,f) for f in os.listdir(path)]
     for imagepath in imagepaths:
-        ID=int(os.path.split(imagepath)[-1].split('.')[0])
-        IDs.append(ID)
-        faceimage=Image.open(imagepath).convert('L')
-        faceNp=np.array(faceimage,'uint8')
-        faces.append(faceNp)
-        cv2.imshow("Training",faceNp)
-        cv2.waitKey(10)
+        if imagepath=="dataset\Thumbs.db":
+            continue
+        else:
+            ID=int(os.path.split(imagepath)[-1].split('.')[0])
+            IDs.append(ID)
+            faceimage=Image.open(imagepath).convert('L')
+            faceNp=np.array(faceimage,'uint8')
+            faces.append(faceNp)
+            cv2.imshow("Training",faceNp)
+            cv2.waitKey(10)
     return np.array(IDs) , faces
     cv2.destroyAllwindow();
 getimage(path)
